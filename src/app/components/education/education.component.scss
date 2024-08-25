@@ -14,8 +14,13 @@
 
 .schoolContainer {
     overflow: hidden;
-    margin-top: 2vh;
+    margin: 2vh auto 0 auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1000px;
+    align-items: center;
 }
 
 .titleContainer {
@@ -31,10 +36,26 @@
     margin-top: 8px;
 }
 
+.schoolPointsContainer {
+    overflow: hidden;
+    display: inline-block;
+    text-align: left;
+}
+
+.schoolPoints {
+    font-size: 2.7rem; /* Adjust as needed */
+    margin-top: 2.7rem;
+}
+
+.certificates {
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    margin-left: 24px;
+}
+
 .container {
     width: 100%;
     margin-top: 5vh;
-    justify-content: left;
 }
 
 .svgContainer {
@@ -86,6 +107,23 @@
         font-size: 20px;
         text-align: center;
         margin-bottom: 4px;
+    }
+
+    .schoolPointsContainer {
+        overflow: hidden;
+        display: inline-block;
+        text-align: left;
+    }
+    
+    .schoolPoints {
+        font-size: 18px;
+        margin-top: 12px;
+    }
+    
+    .certificates {
+        font-size: .8rem;
+        margin-bottom: 4px;
+        margin-left: 24px;
     }
 
     .svgContainer svg{

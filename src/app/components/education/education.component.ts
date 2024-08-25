@@ -10,7 +10,6 @@ import anime from 'animejs';
 export class EducationComponent implements AfterViewInit {
   @ViewChild('strokelogoref', { read: ElementRef }) strokeLogo!: ElementRef;
   @ViewChild('filllogoref', { read: ElementRef }) filllogoref!: ElementRef;
-  @ViewChild('schooltitle', { read: ElementRef }) schooltitle!: ElementRef;
 
   isSubtitleVisible = false;
 
@@ -30,6 +29,7 @@ export class EducationComponent implements AfterViewInit {
             this.animateLogoStrokePaths(strokePaths);
             this.animateLogoFillPaths(fillPaths);
             this.animateSchoolTitle();
+            this.animateSchoolPoints();
             observer.unobserve(entry.target); // Stop observing after animation starts
           }
         });
@@ -84,7 +84,25 @@ export class EducationComponent implements AfterViewInit {
       easing: 'easeOutExpo',
       delay: 0 // Optional: delay to start the animation
   });
+  }
 
+  animateSchoolPoints(): void {
+    anime({
+      targets: '.schoolPoints',
+      translateY: [75, 0], // Move text up from below the underline
+      opacity: [0, 1],
+      duration: 1000,
+      easing: 'easeOutElastic(1, .6)',
+      delay: anime.stagger(300, { start: 1000 })
+    });
 
+    anime({
+      targets: '.certificates',
+      translateX: [-100, 0], // Move text up from below the underline
+      opacity: [0, 1],
+      duration: 1000,
+      easing: 'easeOutElastic(1, .6)',
+      delay: anime.stagger(250, { start: 2250 })
+    });
   }
 }

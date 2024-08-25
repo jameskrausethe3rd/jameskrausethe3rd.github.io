@@ -20,6 +20,7 @@
 .subtitles {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     gap: 50px;
 }
 
@@ -28,7 +29,8 @@
     align-items: center; /* Aligns items vertically centered */
     font-size: 2em;
     opacity: 0;
-    line-height: 1
+    line-height: 1;
+    max-width: 1000px;
 }
 
 .subtitles i.material-icons {
