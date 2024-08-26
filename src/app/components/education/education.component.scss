@@ -47,10 +47,14 @@
     margin-top: 2.7rem;
 }
 
-.certificates {
+.certificates, .courses {
     font-size: 1.8rem;
     margin-bottom: 24px;
     margin-left: 24px;
+}
+
+.material-icons {
+    font-size: 24px; /* Adjust the size as needed */
 }
 
 .container {
@@ -91,6 +95,10 @@
         font-size: 3rem;
     }
 
+    .material-icons {
+        font-size: 12px; /* Adjust the size as needed */
+    }
+
     .schoolContainer {
         overflow: hidden;
     }
@@ -120,7 +128,7 @@
         margin-top: 12px;
     }
     
-    .certificates {
+    .certificates, .courses {
         font-size: .8rem;
         margin-bottom: 4px;
         margin-left: 24px;

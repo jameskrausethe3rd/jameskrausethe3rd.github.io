@@ -92,17 +92,17 @@ export class EducationComponent implements AfterViewInit {
       translateY: [75, 0], // Move text up from below the underline
       opacity: [0, 1],
       duration: 1000,
-      easing: 'easeOutElastic(1, .6)',
-      delay: anime.stagger(300, { start: 1000 })
+      easing: 'easeOutBounce',
+      delay: anime.stagger(50, { start: 1000 })
     });
 
     anime({
-      targets: '.certificates',
+      targets: '.certificates, .courses',
       translateX: [-100, 0], // Move text up from below the underline
       opacity: [0, 1],
       duration: 1000,
-      easing: 'easeOutElastic(1, .6)',
-      delay: anime.stagger(250, { start: 2250 })
+      easing: 'easeOutBounce',
+      delay: anime.stagger(20, { start: 2250 })
     });
   }
 }
