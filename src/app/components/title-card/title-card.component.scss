@@ -12,7 +12,7 @@
 }
 
 .title {
-    font-size: 8rem;
+    font-size: 8em;
     opacity: 0;
 }
 
@@ -35,7 +35,7 @@
 }
 
 /* Mobile styles */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .title {
         font-size: 3rem;
         text-align: center;

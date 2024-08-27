@@ -25,10 +25,12 @@ export class AboutMeComponent {
       At around the age of 10, I began playing electric guitar, and later expanding into acoustic and bass guitar. 
       For Black Friday of 2022, I bought my first digital camera, the Sony A6400 and began my photography journey, 
       with my main subjects being cars but I am starting to branch out into portraits and landscapes.`,
-      `In December of 2021, I bought my first 3D printer, the Ender 3 v2, and I wildly underestimated the 
-      time and fine-tuning it would take to get the first print done. Once I got it dialed in, it was amazing 
-      to see it go to work and make things that I modeled on my computer, such as a lightbox or a cable holder. 
-      I also like to play games on my computer, such as Forza Horizon or Spider-Man remastered`
+      `In my senior year of high school, I built my first gaming PC with money I saved up over the year and 
+      and that is where I discovered my love computers and how much I enjoy building computers. Since then, I've 
+      built around 10 computers for friends and family, as well as a home server to host docker containers for 
+      things such as Home Assistant, Nginx Proxy Manager, and a few other things. It also serves as a Plex Server 
+      and backup for pictures and videos that I take with my phone or camera. I can't forget about my Raspberry Pi 4 
+      that serves PiHole over my network for ad blocking and custom DNS.`
     ];
   }
 

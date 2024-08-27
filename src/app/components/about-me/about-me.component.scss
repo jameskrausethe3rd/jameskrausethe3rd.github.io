@@ -17,6 +17,12 @@
     opacity: 0;
 }
 
+.container {
+    width: 100%;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
 .subtitles {
     display: flex;
     justify-content: center;
@@ -25,9 +31,9 @@
 }
 
 .subtitles p {
-    margin: 0;
+    margin: auto;
     align-items: center; /* Aligns items vertically centered */
-    font-size: 2em;
+    font-size: 2rem;
     opacity: 0;
     line-height: 1;
     max-width: 1000px;
@@ -39,7 +45,7 @@
 }
 
 /* Mobile styles */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .title {
         font-size: 3rem;
     }

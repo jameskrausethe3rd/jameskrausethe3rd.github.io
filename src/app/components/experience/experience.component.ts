@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
+import { Component, QueryList, ViewChildren, AfterViewInit, ElementRef, HostListener, Renderer2, ViewChild } from '@angular/core';
 import anime from 'animejs';
 
 @Component({
@@ -7,54 +8,110 @@ import anime from 'animejs';
   styleUrl: './experience.component.scss'
 })
 export class ExperienceComponent implements AfterViewInit {
-  jobOnePoints = [
-    "Led multiple customer projects and engaged in direct communication with customers to create development and design requirements.",
-    "Developed front-end utilizing Angular and TypeScript for an enhanced and accessible user experience.",
-    "Applied back-end experience in Java, C#/ASP.NET , and C to create robust and scalable server-side solutions.",
-    "Conducted code reviews to ensure code quality and adherence to coding standards. ",
-    "Utilized GitHub for source control and managing our releases on a bi-weekly basis. ",
-    "Compiled and deployed test systems, leveraging Jenkins testing pipelines to enhance code reliability. ",
-    "Involved member of the AspenTech event planning committee. ",
-    "Architected APIs to integrate with relational and NoSQL databases for optimized data retrieval."
-  ];
+  @ViewChild('strokelogoref', { read: ElementRef }) strokeLogo!: ElementRef;
+  @ViewChild('filllogoref', { read: ElementRef }) filllogoref!: ElementRef;
 
-  @ViewChild('experiencecomponent', { read: ElementRef }) experienceComponent!: ElementRef;
-  // @ViewChild('.experience-item', { read: ElementRef }) experienceListItem!: ElementRef;
+  isSubtitleVisible = false;
 
-  constructor() { }
+  constructor(private el: ElementRef, private renderer: Renderer2) {}
 
-  ngAfterViewInit(): void {
-    if (this.experienceComponent && this.experienceComponent.nativeElement) {
+  ngAfterViewInit() {
+    const strokePaths = this.strokeLogo.nativeElement.querySelectorAll('path') as NodeListOf<SVGPathElement>;
+    // const fillPaths = this.filllogoref.nativeElement.querySelectorAll('path');
+
+    // Function to detect if it's mobile
+    const isMobile = window.innerWidth <= 768; // Adjust this value based on your definition of mobile
+
+    if (this.strokeLogo && this.strokeLogo.nativeElement) {
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.animateElement();
+          if (entry.isIntersecting) {          
+            this.animateLogoStrokePaths(strokePaths);
+            // this.animateLogoFillPaths(fillPaths);
+            this.animateSchoolTitle();
+            this.animateSchoolPoints();
             observer.unobserve(entry.target); // Stop observing after animation starts
           }
         });
-      }, { threshold: .1 }); // Trigger when 100% of the element is visible
+      }, { threshold: 1 }); // Trigger when 100% of the element is visible
       
-      observer.observe(this.experienceComponent.nativeElement);
+      observer.observe(this.strokeLogo.nativeElement);
     } else {
-      console.error('Education component element not found or is undefined.');
+      console.error('Logo element not found or is undefined.');
     }
   }
 
-  animateElement(): void {
+  animateLogoStrokePaths(strokePaths: NodeListOf<SVGPathElement>): void {
+    const firstPath = strokePaths[0];
+    const secondPath = strokePaths[1];
+    const thirdPath = strokePaths[3];
     anime({
-      targets: this.experienceComponent.nativeElement,
-      opacity: [0, 1],         // Fade in
-      scale: [.9, 1],          // Scale from 90% to 100%
-      easing: 'easeOutElastic(1, .5)', // Overshoot effect
-      duration: 1500,           // Duration of the animation
+      targets: '.mainLogo',
+      translateY: [75, 0], // Move text up from below the underline
+      easing: 'easeOutExpo',
+      duration: 2000
+    });
+    anime({
+      targets: thirdPath,
+      strokeDashoffset: [anime.setDashoffset, 0],
+      easing: 'linear',
+      duration: 10000,
+      delay: 1500
     });
 
     anime({
-      targets: ".experience-item",
-      opacity: [0, 1],         // Fade in
-      translateY: [50, 0],
-      duration: 1000,           // Duration of the animation
-      delay: anime.stagger(50)
+      targets: strokePaths,
+      opacity: 1,
+      duration: 1000
+    })
+  }
+
+  animateLogoFillPaths(fillPaths: HTMLElement): void {
+    anime({
+      targets: fillPaths,
+      opacity: [0, 1], 
+      easing: 'easeInOutSine',
+      duration: 1000,
+      delay: 2000
+    });
+  }
+
+  animateSchoolTitle(): void {
+    anime({
+      targets: '.schoolTitle',
+      translateY: [75, 0], // Move text up from below the underline
+      opacity: [0, 1], // Fade in the text as it moves up
+      duration: 1000,
+      easing: 'easeOutExpo',
+      delay: 500 // Optional: delay to start the animation
+  });
+
+    anime({
+      targets: '.titleContainer',
+      scaleX: [0, 1], // Fade in the text as it moves up
+      duration: 750,
+      easing: 'easeOutExpo',
+      delay: 0 // Optional: delay to start the animation
+  });
+  }
+
+  animateSchoolPoints(): void {
+    anime({
+      targets: '.schoolPoints',
+      translateY: [75, 0], // Move text up from below the underline
+      opacity: [0, 1],
+      duration: 1000,
+      easing: 'easeOutBounce',
+      delay: anime.stagger(50, { start: 1000 })
+    });
+
+    anime({
+      targets: '.certificates, .courses',
+      translateX: [-100, 0], // Move text up from below the underline
+      opacity: [0, 1],
+      duration: 1000,
+      easing: 'easeOutBounce',
+      delay: anime.stagger(20, { start: 2250 })
     });
   }
 }

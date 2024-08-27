@@ -1,4 +1,154 @@
-.mat-mdc-card {
+:host {
+    background-color: #0F7173;
+    color: white;
+}
+
+:host > * {
+    color: white;
+}
+
+.title {
+    font-size: 8rem;
+    text-align: center;
+}
+
+.schoolContainer {
+    overflow: hidden;
+    margin: 2vh auto 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    max-width: 1000px;
+    align-items: center;
+}
+
+.titleContainer {
+    overflow: hidden;
+    border-bottom: .2rem solid;   
+    display: inline-block;
+}
+
+.schoolTitle {
+    opacity: 0; /* Make the text invisible at the start */
+    font-size: 3rem; /* Adjust as needed */
+    margin-bottom: 20px;
+    margin-top: 8px;
+}
+
+.schoolPointsContainer {
+    overflow: hidden;
+    display: inline-block;
+    text-align: left;
+}
+
+.schoolPoints {
+    font-size: 2.7rem; /* Adjust as needed */
+    margin-top: 2.7rem;
+}
+
+.certificates, .courses {
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    margin-left: 24px;
+}
+
+.material-icons {
+    font-size: 24px; /* Adjust the size as needed */
+}
+
+.container {
+    width: 100%;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.svgContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.svgContainer svg{
+    align-items: center;
+    width: 35vw;
+    position: relative;
+    margin: 0;
+}
+
+.svgContainer path {
     opacity: 0;
+}
+
+.strokeLogo {
+    right: -10vw;
+    z-index: 0;
+}
+
+.fillLogo {
+    z-index: 1;
+    left: -10vw;
+    opacity: 1;
+}
+
+/* Mobile styles */
+@media (max-width: 1024px) {
+    .title {
+        font-size: 3rem;
+    }
+
+    .material-icons {
+        font-size: 12px; /* Adjust the size as needed */
+    }
+
+    .schoolContainer {
+        overflow: hidden;
+    }
+    
+    .titleContainer {
+        overflow: hidden;
+        border-bottom: .2rem solid;   
+        display: inline-block;
+        margin: 0;
+    }
+    
+    .schoolTitle {
+        opacity: 0;
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 4px;
+    }
+
+    .schoolPointsContainer {
+        overflow: hidden;
+        display: inline-block;
+        text-align: left;
+    }
+    
+    .schoolPoints {
+        font-size: 18px;
+        margin-top: 12px;
+    }
+    
+    .certificates, .courses {
+        font-size: .8rem;
+        margin-bottom: 4px;
+        margin-left: 24px;
+    }
+
+    .svgContainer svg{
+        align-items: center;
+        width: 40vw;
+        position: relative;
+        margin: 0;
+    }
+
+    .strokeLogo {
+        right: -20vw;
+        z-index: 1;
+    }
+    
+    .fillLogo {
+        z-index: 0; /* Lower z-index to ensure it is behind element1 */
+        left: -20vw; /* Adjust positioning as needed */
+    }
 }

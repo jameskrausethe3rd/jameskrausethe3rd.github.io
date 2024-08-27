@@ -22,7 +22,7 @@ export class HobbiesComponent implements AfterViewInit {
     { text: `I've been playing guitar since I was 10 years old, with my first guitar
             being the guitar in the image. I started playing rock music like Van Halen,
             AC/DC, Led Zeppelin, and more. For a few years I was attending weekly lessons
-            and continued to learn more and get better, with a few recitals that I playing
+            and continued to learn more and get better, with a few recitals that I played
             a solo piece in. After a while, I was getting interested in acoustic/classical
             music so I picked up an acoustic guitar and learned fingerstyle picking.
             Then I found a YouTube channel called Davie504 where he played slap bass and 
@@ -61,7 +61,7 @@ export class HobbiesComponent implements AfterViewInit {
             this.animatePElementDesktopProgress(element, progress);
           }
         });
-      }, { threshold: Array.from({ length: 101 }, (_, i) => i / 100) });
+      }, { threshold: Array.from({ length: 201 }, (_, i) => i / 200) });
 
       observer.observe(element);
     });
