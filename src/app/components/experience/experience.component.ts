@@ -17,7 +17,7 @@ export class ExperienceComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     const strokePaths = this.strokeLogo.nativeElement.querySelectorAll('path') as NodeListOf<SVGPathElement>;
-    // const fillPaths = this.filllogoref.nativeElement.querySelectorAll('path');
+    const fillPaths = this.filllogoref.nativeElement.querySelectorAll('path');
 
     // Function to detect if it's mobile
     const isMobile = window.innerWidth <= 768; // Adjust this value based on your definition of mobile
@@ -27,7 +27,7 @@ export class ExperienceComponent implements AfterViewInit {
         entries.forEach(entry => {
           if (entry.isIntersecting) {          
             this.animateLogoStrokePaths(strokePaths);
-            // this.animateLogoFillPaths(fillPaths);
+            this.animateLogoFillPaths(fillPaths, strokePaths);
             this.animateSchoolTitle();
             this.animateSchoolPoints();
             observer.unobserve(entry.target); // Stop observing after animation starts
@@ -66,13 +66,20 @@ export class ExperienceComponent implements AfterViewInit {
     })
   }
 
-  animateLogoFillPaths(fillPaths: HTMLElement): void {
+  animateLogoFillPaths(fillPaths: HTMLElement, strokePaths: NodeListOf<SVGPathElement>): void {
     anime({
       targets: fillPaths,
       opacity: [0, 1], 
       easing: 'easeInOutSine',
       duration: 1000,
-      delay: 2000
+      delay: 2000,
+      // complete: function() {
+      //   anime({
+      //     targets: strokePaths,
+      //     opacity: 0,
+      //     duration: 100
+      //   });
+      // }
     });
   }
 

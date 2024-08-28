@@ -70,7 +70,7 @@
 
 .svgContainer svg{
     align-items: center;
-    width: 35vw;
+    width: 40rem;
     position: relative;
     margin: 0;
 }
@@ -80,13 +80,13 @@
 }
 
 .strokeLogo {
-    right: -10vw;
+    right: -20rem;
     z-index: 0;
 }
 
 .fillLogo {
     z-index: 1;
-    left: -10vw;
+    left: -20rem;
     opacity: 1;
 }
 
@@ -137,7 +137,7 @@
 
     .svgContainer svg{
         align-items: center;
-        width: 40vw;
+        width: 15rem;
         position: relative;
         margin: 0;
     }
