@@ -63,7 +63,7 @@ export class ExperienceComponent implements AfterViewInit {
       opacity: [0, 1], 
       easing: 'easeInOutSine',
       duration: 1000,
-      delay: 2000,
+      delay: 2000
     });
   }
 
@@ -78,7 +78,7 @@ export class ExperienceComponent implements AfterViewInit {
   });
 
     anime({
-      targets: '.titleContainer',
+      targets: 'experienceTitleContainer',
       scaleX: [0, 1], // Fade in the text as it moves up
       duration: 750,
       easing: 'easeOutExpo',

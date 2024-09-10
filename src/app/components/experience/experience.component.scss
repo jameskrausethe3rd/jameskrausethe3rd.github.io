@@ -7,11 +7,6 @@
     color: white;
 }
 
-.title {
-    font-size: 8rem;
-    text-align: center;
-}
-
 .experienceContainer {
     overflow: hidden;
     margin: 2vh auto 0 auto;
@@ -66,11 +61,12 @@
 .svgContainer {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
 .svgContainer svg{
     align-items: center;
-    width: 40vw;
+    width: 420px;
     position: relative;
     margin: 0;
 }
@@ -80,22 +76,18 @@
 }
 
 .strokeLogo {
-    right: -20vw;
+    right: -210px;
     z-index: 0;
 }
 
 .fillLogo {
     z-index: 1;
-    left: -20vw;
+    left: -210px;
     opacity: 1;
 }
 
 /* Mobile styles */
 @media (max-width: 1024px) {
-    .title {
-        font-size: 3rem;
-    }
-
     .material-icons {
         font-size: 12px; /* Adjust the size as needed */
     }
@@ -135,20 +127,24 @@
         margin-left: 24px;
     }
 
+    .svgContainer {
+        width: 100%;
+    }
+
     .svgContainer svg{
         align-items: center;
-        width: 40vw;
+        width: 220px;
         position: relative;
         margin: 0;
     }
 
     .strokeLogo {
-        right: -20vw;
         z-index: 1;
+        right: -110px;
     }
     
     .fillLogo {
         z-index: 0; /* Lower z-index to ensure it is behind element1 */
-        left: -20vw; /* Adjust positioning as needed */
+        left: -110px;
     }
 }

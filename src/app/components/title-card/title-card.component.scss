@@ -11,11 +11,6 @@
     text-align: center;
 }
 
-.title {
-    font-size: 8em;
-    opacity: 0;
-}
-
 .subtitles {
     display: flex;
     justify-content: center;
@@ -36,11 +31,6 @@
 
 /* Mobile styles */
 @media (max-width: 1024px) {
-    .title {
-        font-size: 3rem;
-        text-align: center;
-    }
-
     .subtitles {
         gap: 18px;
     }
