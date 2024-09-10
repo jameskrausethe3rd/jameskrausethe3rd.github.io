@@ -12,7 +12,7 @@
     text-align: center;
 }
 
-.schoolContainer {
+.experienceContainer {
     overflow: hidden;
     margin: 2vh auto 0 auto;
     text-align: center;
@@ -29,25 +29,25 @@
     display: inline-block;
 }
 
-.schoolTitle {
+.experienceTitle {
     opacity: 0; /* Make the text invisible at the start */
     font-size: 3rem; /* Adjust as needed */
     margin-bottom: 20px;
     margin-top: 8px;
 }
 
-.schoolPointsContainer {
+.experiencePointsContainer {
     overflow: hidden;
     display: inline-block;
     text-align: left;
 }
 
-.schoolPoints {
+.experiencePoints {
     font-size: 2.7rem; /* Adjust as needed */
     margin-top: 2.7rem;
 }
 
-.certificates, .courses {
+.duties, .courses {
     font-size: 1.8rem;
     margin-bottom: 24px;
     margin-left: 24px;
@@ -70,7 +70,7 @@
 
 .svgContainer svg{
     align-items: center;
-    width: 40rem;
+    width: 40vw;
     position: relative;
     margin: 0;
 }
@@ -80,13 +80,13 @@
 }
 
 .strokeLogo {
-    right: -20rem;
+    right: -20vw;
     z-index: 0;
 }
 
 .fillLogo {
     z-index: 1;
-    left: -20rem;
+    left: -20vw;
     opacity: 1;
 }
 
@@ -100,7 +100,7 @@
         font-size: 12px; /* Adjust the size as needed */
     }
 
-    .schoolContainer {
+    .experienceContainer {
         overflow: hidden;
     }
     
@@ -111,25 +111,25 @@
         margin: 0;
     }
     
-    .schoolTitle {
+    .experienceTitle {
         opacity: 0;
         font-size: 20px;
         text-align: center;
         margin-bottom: 4px;
     }
 
-    .schoolPointsContainer {
+    .experiencePointsContainer {
         overflow: hidden;
         display: inline-block;
         text-align: left;
     }
     
-    .schoolPoints {
+    .experiencePoints {
         font-size: 18px;
         margin-top: 12px;
     }
     
-    .certificates, .courses {
+    .duties, .courses {
         font-size: .8rem;
         margin-bottom: 4px;
         margin-left: 24px;
@@ -137,7 +137,7 @@
 
     .svgContainer svg{
         align-items: center;
-        width: 15rem;
+        width: 40vw;
         position: relative;
         margin: 0;
     }

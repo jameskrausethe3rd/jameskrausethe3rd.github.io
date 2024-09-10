@@ -28,8 +28,8 @@ export class ExperienceComponent implements AfterViewInit {
           if (entry.isIntersecting) {          
             this.animateLogoStrokePaths(strokePaths);
             this.animateLogoFillPaths(fillPaths, strokePaths);
-            this.animateSchoolTitle();
-            this.animateSchoolPoints();
+            this.animateExperienceTitle();
+            this.animateExperiencePoints();
             observer.unobserve(entry.target); // Stop observing after animation starts
           }
         });
@@ -42,21 +42,12 @@ export class ExperienceComponent implements AfterViewInit {
   }
 
   animateLogoStrokePaths(strokePaths: NodeListOf<SVGPathElement>): void {
-    const firstPath = strokePaths[0];
-    const secondPath = strokePaths[1];
-    const thirdPath = strokePaths[3];
     anime({
-      targets: '.mainLogo',
-      translateY: [75, 0], // Move text up from below the underline
-      easing: 'easeOutExpo',
-      duration: 2000
-    });
-    anime({
-      targets: thirdPath,
+      targets: strokePaths,
       strokeDashoffset: [anime.setDashoffset, 0],
       easing: 'linear',
       duration: 10000,
-      delay: 1500
+      delay: 1000
     });
 
     anime({
@@ -73,19 +64,12 @@ export class ExperienceComponent implements AfterViewInit {
       easing: 'easeInOutSine',
       duration: 1000,
       delay: 2000,
-      // complete: function() {
-      //   anime({
-      //     targets: strokePaths,
-      //     opacity: 0,
-      //     duration: 100
-      //   });
-      // }
     });
   }
 
-  animateSchoolTitle(): void {
+  animateExperienceTitle(): void {
     anime({
-      targets: '.schoolTitle',
+      targets: '.experienceTitle',
       translateY: [75, 0], // Move text up from below the underline
       opacity: [0, 1], // Fade in the text as it moves up
       duration: 1000,
@@ -102,9 +86,9 @@ export class ExperienceComponent implements AfterViewInit {
   });
   }
 
-  animateSchoolPoints(): void {
+  animateExperiencePoints(): void {
     anime({
-      targets: '.schoolPoints',
+      targets: '.experiencePoints',
       translateY: [75, 0], // Move text up from below the underline
       opacity: [0, 1],
       duration: 1000,
@@ -113,7 +97,7 @@ export class ExperienceComponent implements AfterViewInit {
     });
 
     anime({
-      targets: '.certificates, .courses',
+      targets: '.duties, .courses',
       translateX: [-100, 0], // Move text up from below the underline
       opacity: [0, 1],
       duration: 1000,
