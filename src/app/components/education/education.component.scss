@@ -128,23 +128,27 @@
     }
 
     .svgContainer {
-        width: 100%;
-    }
-
-    .svgContainer svg{
-        align-items: center;
-        width: 220px;
         position: relative;
-        margin: 0;
+        width: 220px; /* Limit the container width to the width of the SVGs */
+        height: 125px; /* Adjusts height based on the content */
+        margin: auto;
     }
-
+    
+    .svgContainer svg {
+        position: absolute; /* Stack SVGs on top of each other */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto; /* Center the SVGs inside the container */
+        width: 220px;
+    }
+    
     .strokeLogo {
-        z-index: 1;
-        right: -110px;
+        z-index: 1; /* Stack above fillLogo */
     }
     
     .fillLogo {
-        z-index: 0; /* Lower z-index to ensure it is behind element1 */
-        left: -110px;
+        z-index: 0; /* Positioned behind strokeLogo */
     }
 }
