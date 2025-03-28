@@ -42,6 +42,7 @@
 
 .prompt, .initializing-prompt {
   font-family: monospace;
+  display: inline-block;
 }
 
 .initializing-prompt::after {
