@@ -1,0 +1,13 @@
+<div class="terminal-container" #terminalContainer>
+  <pre class="ascii-art" id="typed-output"></pre>
+  <div id="command-output">
+    <pre class="command-line-output" *ngFor="let command of enteredCommands">{{command}}</pre>
+  </div>
+  <div class="input-container" *ngIf="!showInitializing" #inputContainer>
+    <span class="prompt">jameskrause@portfolio:~$&nbsp;</span>
+    <input type="text" class="terminal-input" id="typed-input" autocapitalize="none" (keydown)="onCommand($event)" #typedInput/>
+  </div>
+  <div class="input-container" *ngIf="showInitializing && !hidden">
+    <span class="initializing-prompt">Initializing bash</span>
+  </div>
+</div>

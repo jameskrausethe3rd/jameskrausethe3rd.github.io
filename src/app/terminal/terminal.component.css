@@ -1,0 +1,68 @@
+.terminal-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: left;
+  padding: 1em;
+  min-height: 100vh;
+  margin: auto;
+  max-width: 1175px;
+  border: solid 1px;
+}
+
+.ascii-art {
+  width: 100%;
+  border: none;
+  padding: 0;
+  align-items: left;
+  text-align: left;
+}
+
+.terminal-input {
+  flex: 1;
+  border: none;
+  padding: 0px;
+  background: transparent;
+  font-family: monospace;
+  height: 100%;
+  line-height: normal;
+  outline: none;
+}
+
+.terminal-input:focus {
+  border: none;
+  padding: 0px;
+  font-family: monospace;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.prompt, .initializing-prompt {
+  font-family: monospace;
+}
+
+.initializing-prompt::after {
+  content: '.';
+  animation: loading-dots 1.5s steps(5, end) infinite;
+}
+
+.command-line-output {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+@keyframes loading-dots {
+  0% {
+    content: '.';
+  }
+  50% {
+    content: '..';
+  }
+  100% {
+    content: '...';
+  }
+}
