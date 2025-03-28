@@ -1,10 +1,11 @@
 {
-  "name": "my-app",
+  "name": "jameskrausethe3rd",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "push-gh-pages": "ng build --configuration production --base-href \"https://jameskrausethe3rd.github.io\" && npx angular-cli-ghpages --dir=dist/jameskrausethe3rd",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

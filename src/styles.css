@@ -1,6 +1,6 @@
 @import "terminal.css";
 :root {
-  --global-font-size: 15px;
+  --global-font-size: clamp(0rem, calc(1.1vw), 16px);
   --global-line-height: 1.4em;
   --global-space: 10px;
   --font-stack: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
@@ -22,7 +22,7 @@
   --display-h1-decoration: none;
 }
 
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   :root {
     --global-font-size: 8px;
   }
@@ -32,7 +32,7 @@
   :root {
     --global-font-size: 4.5px;
   }
-}
+} */
 
 .hidden-element {
   visibility: hidden;

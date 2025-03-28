@@ -3,6 +3,9 @@
   <div id="command-output">
     <pre class="command-line-output" *ngFor="let command of enteredCommands">{{command}}</pre>
   </div>
+  <div class="input-container" *ngIf="!showInitializing">
+    <span class="prompt">Type "help" for available commands.</span>
+  </div>
   <div class="input-container" *ngIf="!showInitializing" #inputContainer>
     <span class="prompt">jameskrause@portfolio:~$&nbsp;</span>
     <input type="text" class="terminal-input" id="typed-input" autocapitalize="none" (keydown)="onCommand($event)" #typedInput/>
