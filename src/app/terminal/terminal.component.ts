@@ -1,6 +1,6 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { CommandService } from '../services/command.service';
+import { Component, AfterViewInit, ElementRef, ViewChild, ViewChildren, QueryList, HostListener } from '@angular/core';
 import Typed from 'typed.js';
+import { FileService } from '../services/file.service';
 
 @Component({
   selector: 'app-terminal',
@@ -12,10 +12,12 @@ export class TerminalComponent implements AfterViewInit {
   @ViewChild('inputContainer') inputContainer!: ElementRef;
   @ViewChild('terminalContainer') terminalContainer!: ElementRef;
 
+  constructor(private fileService: FileService) {}
+
   showInitializing: boolean = true;
   hidden: boolean = true;
-
-  constructor(private commandService: CommandService) {}
+  commandLinePrefix: string = "jameskrause@portfolio:~$";
+  historyIndex: number = 0;
 
   welcomeMessage: string[] = [
     `                                         
@@ -67,6 +69,8 @@ export class TerminalComponent implements AfterViewInit {
         }
       });
     }
+
+    this.fileService.createDefaultFiles()
   }
 
   private finishWelcomeMessage() {
@@ -90,12 +94,45 @@ export class TerminalComponent implements AfterViewInit {
     }
   }
 
-  onCommand(event: KeyboardEvent) {
+  onKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       const command = this.typedInput.nativeElement.value.trim();
-      const response = this.commandService.getResponse(command);
-      this.enteredCommands.push(`jameskrause@portfolio:~$ ${command}\n${response}`);
-      this.typedInput.nativeElement.value = '';
+      this.enteredCommands.push(command);
+      this.historyIndex = this.enteredCommands.length;
+      this.clearInputValue();
     }
+
+    else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (this.enteredCommands.length > 0 && this.historyIndex > 0) {
+        this.historyIndex -= 1;
+        this.setInputValue(this.enteredCommands[this.historyIndex]);
+      }
+    }
+
+    else if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      if (this.enteredCommands.length > 0 && this.historyIndex < this.enteredCommands.length - 1) {
+        this.historyIndex += 1;
+        this.setInputValue(this.enteredCommands[this.historyIndex]);
+      } else {
+        this.historyIndex = this.enteredCommands.length;
+        this.clearInputValue();
+    }
+    }
+  }
+
+  private setInputValue(value: string) {
+    this.typedInput.nativeElement.value = value;
+
+  }
+
+  private clearInputValue() {
+    this.typedInput.nativeElement.value = '';
+  }
+
+  @HostListener('document:click', ['$event'])
+  preventClick(event: MouseEvent) {
+    event.preventDefault();
   }
 }

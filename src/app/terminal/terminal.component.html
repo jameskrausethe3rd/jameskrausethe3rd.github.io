@@ -1,14 +1,20 @@
+<div class="overlay"></div>
 <div class="terminal-container" #terminalContainer>
   <pre class="ascii-art" id="typed-output"></pre>
   <div class="input-container" *ngIf="!showInitializing">
     <span class="prompt">Type "help" for available commands.</span>
   </div>
   <div id="command-output">
-    <pre class="command-line-output" *ngFor="let command of enteredCommands">{{command}}</pre>
+    <div *ngFor="let enteredCommand of enteredCommands">
+      <div class="input-container" *ngIf="!showInitializing" #inputContainer>
+        <span class="prompt">{{commandLinePrefix}}&nbsp;{{enteredCommand}}</span>
+      </div>
+      <app-output-component [enteredCommand]="enteredCommand"></app-output-component>
+    </div>
   </div>
   <div class="input-container" *ngIf="!showInitializing" #inputContainer>
-    <span class="prompt">jameskrause@portfolio:~$&nbsp;</span>
-    <input type="text" class="terminal-input" id="typed-input" autocapitalize="none" (keydown)="onCommand($event)" #typedInput/>
+    <span class="prompt">{{commandLinePrefix}}&nbsp;</span>
+    <input type="text" class="terminal-input" id="typed-input" autocapitalize="none" (keydown)="onKeyDown($event)" #typedInput/>
   </div>
   <div class="input-container" *ngIf="showInitializing && !hidden">
     <span class="initializing-prompt"><br>Initializing bash</span>
