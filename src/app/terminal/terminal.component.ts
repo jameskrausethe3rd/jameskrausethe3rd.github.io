@@ -18,7 +18,7 @@ export class TerminalComponent implements AfterViewInit {
   showInitializing: boolean = true;
   hidden: boolean = true;
   commandLinePrefix: string = "jameskrause@portfolio:~$";
-  historyIndex: number = 0;
+  historyIndex: number = -1;
   tabAutocompleteIndex: number = 0;
   partialEnteredCommand: string = "";
 
@@ -152,7 +152,6 @@ export class TerminalComponent implements AfterViewInit {
         const command = this.typedInput.nativeElement.value;
         this.partialEnteredCommand = command;
         this.tabAutocompleteIndex = 0;
-        this.historyIndex = 0;
       }, 0);
     }
 
@@ -166,7 +165,7 @@ export class TerminalComponent implements AfterViewInit {
 
     else if (event.key === 'ArrowDown') {
       event.preventDefault();
-      if (this.enteredCommands.length > 0 && this.historyIndex < this.enteredCommands.length - 1) {
+      if (this.enteredCommands.length > 0 && this.historyIndex !== -1 && this.historyIndex < this.enteredCommands.length - 1) {
         this.historyIndex += 1;
         this.setInputValue(this.enteredCommands[this.historyIndex]);
       } else {
@@ -208,7 +207,6 @@ export class TerminalComponent implements AfterViewInit {
     this.typedInput.nativeElement.value = '';
     this.tabAutocompleteIndex = 0;
     this.partialEnteredCommand = '';
-    this.historyIndex = 0;
   }
 
   @HostListener('document:click', ['$event'])
