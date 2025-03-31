@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, ViewChildren, QueryList, HostListener } from '@angular/core';
 import Typed from 'typed.js';
 import { FileService } from '../services/file.service';
+import { CommandService } from '../services/command.service';
 
 @Component({
   selector: 'app-terminal',
@@ -12,12 +13,14 @@ export class TerminalComponent implements AfterViewInit {
   @ViewChild('inputContainer') inputContainer!: ElementRef;
   @ViewChild('terminalContainer') terminalContainer!: ElementRef;
 
-  constructor(private fileService: FileService) {}
+  constructor(private fileService: FileService, private commandService: CommandService) {}
 
   showInitializing: boolean = true;
   hidden: boolean = true;
   commandLinePrefix: string = "jameskrause@portfolio:~$";
   historyIndex: number = 0;
+  tabAutocompleteIndex: number = 0;
+  partialEnteredCommand: string = "";
 
   welcomeMessage: string[] = [
     `                                         
@@ -48,6 +51,7 @@ export class TerminalComponent implements AfterViewInit {
   ];
 
   enteredCommands: string[] = [];
+  possibleCommands: string[] = [];
 
   // Initialize Typed.js after view load
   ngAfterViewInit(): void {
@@ -70,7 +74,8 @@ export class TerminalComponent implements AfterViewInit {
       });
     }
 
-    this.fileService.createDefaultFiles()
+    this.fileService.createDefaultFiles();
+    this.possibleCommands = this.commandService.getCommands();
   }
 
   private finishWelcomeMessage() {
@@ -78,7 +83,6 @@ export class TerminalComponent implements AfterViewInit {
 
     setTimeout(() => {
       this.showInitializing = false;
-      this.typedInput.nativeElement.focus();
     }, 2000);
   }
 
@@ -102,6 +106,56 @@ export class TerminalComponent implements AfterViewInit {
       this.clearInputValue();
     }
 
+    else if (event.key === 'Tab') {
+      event.preventDefault();
+      const command = this.typedInput.nativeElement.value.trim();
+      const words = command.split(" ");
+      const currentWord = words[words.length - 1];
+      const currentCommand = words[0];
+
+      if (currentCommand) {
+        let matchingCommands: string[] = [];
+
+        if (!this.partialEnteredCommand) {
+          this.partialEnteredCommand = currentWord;
+          this.tabAutocompleteIndex = 0;
+        }
+
+        if (words.length === 1) {
+          matchingCommands = this.possibleCommands.filter(cmd => cmd.startsWith(this.partialEnteredCommand));
+  
+          if (matchingCommands.length > 0) {
+            // Cycle through matching commands
+            if (!this.tabAutocompleteIndex || this.tabAutocompleteIndex >= matchingCommands.length) {
+              this.tabAutocompleteIndex = 0;
+            }
+  
+            this.setInputValue(matchingCommands[this.tabAutocompleteIndex]);
+            this.tabAutocompleteIndex++;
+          }
+        } else {
+          switch(currentCommand) {
+            case "cat":
+              this.tabAutoCompleteCat();
+              break;
+            default:
+              break;
+          }
+        }
+
+
+      }
+    }
+
+    else if (event.key === 'Backspace') {
+      setTimeout(() => {
+        const command = this.typedInput.nativeElement.value;
+        this.partialEnteredCommand = command;
+        this.tabAutocompleteIndex = 0;
+        this.historyIndex = 0;
+      }, 0);
+    }
+
     else if (event.key === 'ArrowUp') {
       event.preventDefault();
       if (this.enteredCommands.length > 0 && this.historyIndex > 0) {
@@ -118,7 +172,30 @@ export class TerminalComponent implements AfterViewInit {
       } else {
         this.historyIndex = this.enteredCommands.length;
         this.clearInputValue();
+      }
     }
+
+    else {
+      setTimeout(() => {
+        this.partialEnteredCommand = this.typedInput.nativeElement.value;
+      }, 0);
+    }
+  }
+  private tabAutoCompleteCat() {
+    const files = this.fileService.getFileNames();
+    const command = this.typedInput.nativeElement.value.trim();
+    const words = command.split(" ");
+    const currentWord = words[words.length - 1];
+    const matchingCommands = files.filter(cmd => cmd.startsWith(currentWord));
+
+    if (matchingCommands.length > 0) {
+      // Cycle through matching commands
+      if (!this.tabAutocompleteIndex || this.tabAutocompleteIndex >= matchingCommands.length) {
+        this.tabAutocompleteIndex = 0;
+      }
+
+      this.setInputValue("cat " + matchingCommands[this.tabAutocompleteIndex]);
+      this.tabAutocompleteIndex++;
     }
   }
 
@@ -129,6 +206,9 @@ export class TerminalComponent implements AfterViewInit {
 
   private clearInputValue() {
     this.typedInput.nativeElement.value = '';
+    this.tabAutocompleteIndex = 0;
+    this.partialEnteredCommand = '';
+    this.historyIndex = 0;
   }
 
   @HostListener('document:click', ['$event'])

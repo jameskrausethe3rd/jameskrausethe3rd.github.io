@@ -89,4 +89,8 @@ export class CommandService {
 
     return output;
   }
+
+  getCommands(): string[] {
+    return Object.keys(commands).filter(command => command !== "commands" && command !== "predefinedTextCommands");
+  }
 }

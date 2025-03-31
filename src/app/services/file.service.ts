@@ -24,11 +24,19 @@ export class FileService {
     this.createFile('script.sh', '#!/bin/bash\necho "Hello, World!"');
     this.createFile('index.html', '<!DOCTYPE html>\n<html>\n<head>\n<title>My Page</title>\n</head>\n<body>\n<h1>Hello, World!</h1>\n</body>\n</html>');
     this.createFile('style.css', 'body {\n  background-color: #f0f0f0;\n}');
-    this.createFile('todo.txt', '- [ ] Add file creation\n- [ ] Add file deletion\n- [ ] Add file sorting\n');
+    this.createFile('todo.txt', `- [ ] Add file creation\n- [ ] Add file deletion\n- [ ] Add file sorting\n- [ ] Add tab autocomplete\n`);
   }
 
   getFiles(): FileModel[] {
+    this.files.sort((a, b) => a.name.localeCompare(b.name));
+    this.files.sort((a, b) => a.lastModified.getTime() - b.lastModified.getTime());
     return this.files;
+  }
+
+  getFileNames(): string[] {
+    this.files.sort((a, b) => a.name.localeCompare(b.name));
+    this.files.sort((a, b) => a.lastModified.getTime() - b.lastModified.getTime());
+    return this.files.map(file => file.name);
   }
 
   getFile(fileName: string): FileModel | undefined {
