@@ -50,7 +50,7 @@ export class TerminalComponent implements AfterViewInit {
 `,
   ];
 
-  enteredCommands: string[] = [];
+  allEnteredCommands: string[] = [];
   possibleCommands: string[] = [];
 
   // Initialize Typed.js after view load
@@ -101,8 +101,8 @@ export class TerminalComponent implements AfterViewInit {
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       const command = this.typedInput.nativeElement.value.trim();
-      this.enteredCommands.push(command);
-      this.historyIndex = this.enteredCommands.length;
+      this.allEnteredCommands.push(command);
+      this.historyIndex = this.allEnteredCommands.length;
       this.clearInputValue();
     }
 
@@ -157,19 +157,19 @@ export class TerminalComponent implements AfterViewInit {
 
     else if (event.key === 'ArrowUp') {
       event.preventDefault();
-      if (this.enteredCommands.length > 0 && this.historyIndex > 0) {
+      if (this.allEnteredCommands.length > 0 && this.historyIndex > 0) {
         this.historyIndex -= 1;
-        this.setInputValue(this.enteredCommands[this.historyIndex]);
+        this.setInputValue(this.allEnteredCommands[this.historyIndex]);
       }
     }
 
     else if (event.key === 'ArrowDown') {
       event.preventDefault();
-      if (this.enteredCommands.length > 0 && this.historyIndex !== -1 && this.historyIndex < this.enteredCommands.length - 1) {
+      if (this.allEnteredCommands.length > 0 && this.historyIndex !== -1 && this.historyIndex < this.allEnteredCommands.length - 1) {
         this.historyIndex += 1;
-        this.setInputValue(this.enteredCommands[this.historyIndex]);
+        this.setInputValue(this.allEnteredCommands[this.historyIndex]);
       } else {
-        this.historyIndex = this.enteredCommands.length;
+        this.historyIndex = this.allEnteredCommands.length;
         this.clearInputValue();
       }
     }

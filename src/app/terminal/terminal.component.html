@@ -5,7 +5,7 @@
     <span class="prompt">Type "help" for available commands.</span>
   </div>
   <div id="command-output">
-    <div *ngFor="let enteredCommand of enteredCommands">
+    <div *ngFor="let enteredCommand of allEnteredCommands">
       <div class="input-container" *ngIf="!showInitializing" #inputContainer>
         <span class="prompt">{{commandLinePrefix}}&nbsp;{{enteredCommand}}</span>
       </div>
