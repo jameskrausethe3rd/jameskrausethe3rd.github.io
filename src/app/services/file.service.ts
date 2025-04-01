@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FileModel } from '../models/file-model';
-import { BUILD_DATE } from 'src/assets/build-date';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +25,6 @@ export class FileService {
     this.createFile('index.html', '<!DOCTYPE html>\n<html>\n<head>\n<title>My Page</title>\n</head>\n<body>\n<h1>Hello, World!</h1>\n</body>\n</html>');
     this.createFile('style.css', 'body {\n  background-color: #f0f0f0;\n}');
     this.createFile('todo.txt', `- [ ] Add file creation\n- [ ] Add file deletion\n- [ ] Add file sorting\n- [x] Add tab autocomplete\n- [x] Add a way to see last page update\n`);
-    this.createFile('build-date.txt', `${BUILD_DATE}`)
   }
 
   getFiles(): FileModel[] {

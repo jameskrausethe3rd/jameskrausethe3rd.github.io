@@ -2,6 +2,7 @@ import { Component, AfterViewInit, ElementRef, ViewChild, ViewChildren, QueryLis
 import Typed from 'typed.js';
 import { FileService } from '../services/file.service';
 import { CommandService } from '../services/command.service';
+import { BUILD_DATE } from 'src/assets/build-date';
 
 @Component({
   selector: 'app-terminal',
@@ -18,10 +19,27 @@ export class TerminalComponent implements AfterViewInit {
   showInitializing: boolean = true;
   hidden: boolean = true;
   commandLinePrefix: string = "jameskrause@portfolio:~$";
-  historyIndex: number = -1;
-  tabAutocompleteIndex: number = 0;
-  partialEnteredCommand: string = "";
+  buildDate = new Date(BUILD_DATE).toLocaleString();
 
+  // Index for where in the entered commands the user is
+  historyIndex: number = -1;
+
+  // Index for where in the possible commands the user is
+  tabAutocompleteIndex: number = 0;
+
+  // Value of the text box before the user pressed up/down/tab
+  partialEnteredCommand: string = "";
+  
+  // All commands that were entered
+  allEnteredCommands: string[] = [];
+
+  // Distinct list of commands entered so duplicates aren't next to each other
+  distinctEnteredCommands: string[] = [];
+  
+  // List of commands that can be used in tab auto-complete
+  possibleCommands: string[] = [];
+
+  // Ascii art message that is displayed on laod
   welcomeMessage: string[] = [
     `                                         
 \` _ _ _     _                      _       \`
@@ -45,13 +63,10 @@ export class TerminalComponent implements AfterViewInit {
 \` JJ:::::::::::::JJ   a:::::aaaa::::::a m::::m   m::::m   m::::m e::::::::eeeeeeee  s::::::::::::::s  OO:::::::::::::OO S::::::SSSSSS:::::S\`
 \`   JJ:::::::::JJ      a::::::::::aa:::am::::m   m::::m   m::::m  ee:::::::::::::e   s:::::::::::ss     OO:::::::::OO   S:::::::::::::::SS \`
 \`     JJJJJJJJJ         aaaaaaaaaa  aaaammmmmm   mmmmmm   mmmmmm    eeeeeeeeeeeeee    sssssssssss         OOOOOOOOO      SSSSSSSSSSSSSSS   \`
-\`
+\`build date: ${this.buildDate}\`
 \`
 `,
   ];
-
-  allEnteredCommands: string[] = [];
-  possibleCommands: string[] = [];
 
   // Initialize Typed.js after view load
   ngAfterViewInit(): void {
@@ -80,10 +95,11 @@ export class TerminalComponent implements AfterViewInit {
 
   private finishWelcomeMessage() {
     this.hidden = false;
+    const randTime = this.getRandomNumber(500, 2000);
 
     setTimeout(() => {
       this.showInitializing = false;
-    }, 2000);
+    }, randTime);
   }
 
   ngAfterViewChecked() {
@@ -99,33 +115,32 @@ export class TerminalComponent implements AfterViewInit {
   }
 
   onKeyDown(event: KeyboardEvent) {
+    // Get the value of the input no matter what and enter it
     if (event.key === 'Enter') {
-      const command = this.typedInput.nativeElement.value.trim();
+      const command = this.typedInput.nativeElement.value;
       this.allEnteredCommands.push(command);
-      this.historyIndex = this.allEnteredCommands.length;
+
+      if (this.distinctEnteredCommands[this.distinctEnteredCommands.length - 1] !== command) {
+        this.distinctEnteredCommands.push(command);
+        this.historyIndex = this.distinctEnteredCommands.length;
+      }
+
       this.clearInputValue();
     }
 
+    // Tab autocomplete
     else if (event.key === 'Tab') {
       event.preventDefault();
-      const command = this.typedInput.nativeElement.value.trim();
-      const words = command.split(" ");
-      const currentWord = words[words.length - 1];
+      const words = this.partialEnteredCommand.split(" ");
       const currentCommand = words[0];
 
       if (currentCommand) {
         let matchingCommands: string[] = [];
 
-        if (!this.partialEnteredCommand) {
-          this.partialEnteredCommand = currentWord;
-          this.tabAutocompleteIndex = 0;
-        }
-
         if (words.length === 1) {
           matchingCommands = this.possibleCommands.filter(cmd => cmd.startsWith(this.partialEnteredCommand));
   
           if (matchingCommands.length > 0) {
-            // Cycle through matching commands
             if (!this.tabAutocompleteIndex || this.tabAutocompleteIndex >= matchingCommands.length) {
               this.tabAutocompleteIndex = 0;
             }
@@ -142,59 +157,56 @@ export class TerminalComponent implements AfterViewInit {
               break;
           }
         }
-
-
       }
     }
 
+    // Update partially entered command with the current value of the input
     else if (event.key === 'Backspace') {
       setTimeout(() => {
-        const command = this.typedInput.nativeElement.value;
-        this.partialEnteredCommand = command;
+        this.partialEnteredCommand = this.typedInput.nativeElement.value;
         this.tabAutocompleteIndex = 0;
       }, 0);
     }
 
+    // Go up in the distinctEnteredCommands list
     else if (event.key === 'ArrowUp') {
       event.preventDefault();
-      if (this.allEnteredCommands.length > 0 && this.historyIndex > 0) {
+      if (this.distinctEnteredCommands.length > 0 && this.historyIndex > 0) {
         this.historyIndex -= 1;
-        this.setInputValue(this.allEnteredCommands[this.historyIndex]);
+        this.setInputValue(this.distinctEnteredCommands[this.historyIndex]);
+        this.partialEnteredCommand =this.distinctEnteredCommands[this.historyIndex];
       }
     }
 
+    // Go down in the distinctEnteredCommands list
     else if (event.key === 'ArrowDown') {
       event.preventDefault();
-      if (this.allEnteredCommands.length > 0 && this.historyIndex !== -1 && this.historyIndex < this.allEnteredCommands.length - 1) {
+      if (this.distinctEnteredCommands.length > 0 && this.historyIndex !== -1 && this.historyIndex < this.distinctEnteredCommands.length - 1) {
         this.historyIndex += 1;
-        this.setInputValue(this.allEnteredCommands[this.historyIndex]);
+        this.setInputValue(this.distinctEnteredCommands[this.historyIndex]);
       } else {
-        this.historyIndex = this.allEnteredCommands.length;
+        this.historyIndex = this.distinctEnteredCommands.length;
         this.clearInputValue();
       }
     }
 
+    // Update partial entered command and tabAutoCompleteIndex whenever anything else is entered
     else {
       setTimeout(() => {
+        this.tabAutocompleteIndex = 0;
         this.partialEnteredCommand = this.typedInput.nativeElement.value;
       }, 0);
     }
   }
+
   private tabAutoCompleteCat() {
     const files = this.fileService.getFileNames();
-    const command = this.typedInput.nativeElement.value.trim();
-    const words = command.split(" ");
-    const currentWord = words[words.length - 1];
+    const currentWord = this.partialEnteredCommand.split(" ").pop() || '';
     const matchingCommands = files.filter(cmd => cmd.startsWith(currentWord));
 
-    if (matchingCommands.length > 0) {
-      // Cycle through matching commands
-      if (!this.tabAutocompleteIndex || this.tabAutocompleteIndex >= matchingCommands.length) {
-        this.tabAutocompleteIndex = 0;
-      }
-
-      this.setInputValue("cat " + matchingCommands[this.tabAutocompleteIndex]);
-      this.tabAutocompleteIndex++;
+    if (matchingCommands.length) {
+      this.tabAutocompleteIndex %= matchingCommands.length;
+      this.setInputValue(`cat ${matchingCommands[this.tabAutocompleteIndex++]}`);
     }
   }
 
@@ -205,8 +217,12 @@ export class TerminalComponent implements AfterViewInit {
 
   private clearInputValue() {
     this.typedInput.nativeElement.value = '';
-    this.tabAutocompleteIndex = 0;
     this.partialEnteredCommand = '';
+    this.tabAutocompleteIndex = 0;
+  }
+
+  public getRandomNumber(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
   }
 
   @HostListener('document:click', ['$event'])
