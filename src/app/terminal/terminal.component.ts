@@ -120,7 +120,7 @@ export class TerminalComponent implements AfterViewInit {
       const command = this.typedInput.nativeElement.value;
       this.allEnteredCommands.push(command);
 
-      if (this.distinctEnteredCommands[this.distinctEnteredCommands.length - 1] !== command) {
+      if ("" !== command && command !== this.distinctEnteredCommands[this.distinctEnteredCommands.length - 1]) {
         this.distinctEnteredCommands.push(command);
         this.historyIndex = this.distinctEnteredCommands.length;
       }
