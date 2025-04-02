@@ -4,10 +4,10 @@
         "Hi there! My name is James Krause and I'm a Software Developer currently working at AspenTech! I was born in Shakopee, Minnesota and currently live in Eden Prairie with two of my cousins and one of my friends. I graduated from Minnesota State University, Mankato in 2022 with a B.S. in Computer Information Technology, but more on that later."
       ],
       [
-        "You can find me doing quite a few things when I'm not working or hanging out with my friends. When I was 5, I started bowling in a league, and continued to bowl on a league until I went to college. At around the age of 10, I began playing electric guitar, and later expanding into acoustic and bass guitar. For Black Friday of 2022, I bought my first digital camera, the Sony A6400 and began my photography journey, with my main subjects being cars but I am starting to branch out into portraits and landscapes."
+        "You can find me doing quite a few things when I'm not working or hanging out with my friends. When I was 5, I started bowling in a league, and continued to bowl on a league until I went to college. At around the age of 10, I began playing electric guitar, and later expanded into acoustic and bass guitar. For Black Friday of 2022, I bought my first digital camera, the Sony A6400 and began my photography journey, with my main focus being cars, but I am starting to branch out into portraits and landscapes."
       ],
       [
-        "In my senior year of high school, I built my first gaming PC with money I saved up over the year and and that is where I discovered my love for computers and how much I enjoy building computers. Since then, I've built around 10 computers for friends and family, as well as a home server to host docker containers for things such as Home Assistant, Nginx Proxy Manager, and a few other things. It also serves as a Plex Server and backup for pictures and videos that I take with my phone or camera. I can't forget about my Raspberry Pi 4 that serves PiHole over my network for ad blocking and custom DNS."
+        "In my senior year of high school, I built my first gaming PC with money I saved up over the year and and that is where I discovered my love for computers and how much I enjoy building computers. Since then, I've built quite a few computers for friends and family, as well as a home server to host docker containers. It also serves as a Plex Server and backup for pictures and videos that I take with my phone or camera. I can't forget about my Raspberry Pi 4 that serves PiHole over my network for ad blocking and custom DNS."
       ]
     ],
     "cat": [],
@@ -59,8 +59,8 @@
     "projects": [
       [
         "I have a few projects that I have worked on in my free time, including:",
-        "> A personal website to showcase my portfolio and resume.",
-        "> A digital camera portfolio to showcase my photography.",
+        "> A personal website to showcase my portfolio and resume. (this one!)",
+        "> A digital camera <a href='https://jameskrausethe3rd.github.io/photoPortfolio/' target='_blank'>portfolio</a> to showcase my photography.",
         "> A home server to host docker containers for:",
         "  - Home Assistant",
         "  - Nginx Proxy Manager",
@@ -70,7 +70,7 @@
         "  - Orcaslicer so I can slice 3D models from a web browser",
         "  - and more!",
         "> A Raspberry Pi 4 that serves PiHole over my network for ad blocking and custom DNS.",
-        "> A few other projects that can be found on http://www..github.com/jameskrausethe3rd"
+        "> A few other projects that can be found on <a href='https://github.com/jameskrausethe3rd' target='_blank'>GitHub</a>."
       ]
     ],
     "skills": [

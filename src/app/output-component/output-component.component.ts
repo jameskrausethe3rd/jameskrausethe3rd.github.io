@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommandService } from '../services/command.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-output-component',
@@ -8,11 +9,12 @@ import { CommandService } from '../services/command.service';
 })
 export class OutputComponentComponent implements OnInit {
   @Input() enteredCommand!: string;
-  public commandResponse!: string;
+  public commandResponse!: SafeHtml;
 
-  constructor(private commandService: CommandService) {}
+  constructor(private commandService: CommandService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.commandResponse = this.commandService.getResponse(this.enteredCommand);
+    const rawResponse = this.commandService.getResponse(this.enteredCommand);
+    this.commandResponse = this.sanitizer.bypassSecurityTrustHtml(rawResponse);
   }
 }
