@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "postbuild": "node ./src/generate-build-date.js",
-    "push-gh-pages": "ng build --configuration production --base-href \"https://jameskrausethe3rd.github.io\" && npm run postbuild && npx angular-cli-ghpages --dir=dist/jameskrausethe3rd",
+    "push-gh-pages": "npm run postbuild && ng build --configuration production --base-href \"https://jameskrausethe3rd.github.io\" && npx angular-cli-ghpages --dir=dist/jameskrausethe3rd",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
