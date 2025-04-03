@@ -1,13 +1,16 @@
 {
     "about": [
       [
-        "Hi there! My name is James Krause and I'm a Software Developer currently working at AspenTech! I was born in Shakopee, Minnesota and currently live in Eden Prairie with two of my cousins and one of my friends. I graduated from Minnesota State University, Mankato in 2022 with a B.S. in Computer Information Technology, but more on that later."
+        "Hi there! I'm James Krause and I currently work at AspenTech as Software Developer! I was born and raised in Shakopee, Minnesota and currently live in Eden Prairie. I graduated from Minnesota State University, Mankato in 2022 with a B.S. in Computer Information Technology."
       ],
       [
-        "You can find me doing quite a few things when I'm not working or hanging out with my friends. When I was 5, I started bowling in a league, and continued to bowl on a league until I went to college. At around the age of 10, I began playing electric guitar, and later expanded into acoustic and bass guitar. For Black Friday of 2022, I bought my first digital camera, the Sony A6400 and began my photography journey, with my main focus being cars, but I am starting to branch out into portraits and landscapes."
+        "You can find me doing quite a few things when I'm not at work. When I was 5, I started bowling in a league, and continued to bowl on a league until I went to college. At the age of 10, I began playing electric guitar and I later expanded into acoustic and bass guitar. In 2022 as an early Christmas gift to myself, I bought my first digital camera, the Sony A6400 and began my photography journey. My main focus started with cars, but I started to branch out into portraits, landscapes, and even wedding photos!"
       ],
       [
-        "In my senior year of high school, I built my first gaming PC with money I saved up over the year and and that is where I discovered my love for computers and how much I enjoy building computers. Since then, I've built quite a few computers for friends and family, as well as a home server to host docker containers. It also serves as a Plex Server and backup for pictures and videos that I take with my phone or camera. I can't forget about my Raspberry Pi 4 that serves PiHole over my network for ad blocking and custom DNS."
+        "In my senior year of high school, I built my first gaming PC with money I saved up over the year and that is where I discovered my love for computers and how much I enjoy building them. Since that time, I've built quite a few computers for friends and family, as well as a home server to host docker containers, which you can find in my projects section. It also serves as a Plex Server and a backup for my pictures and videos. Lastly, I have a Raspberry Pi 4 that runs PiHole to block ads across my network, as well as serve as a custom DNS server."
+      ],
+      [
+        "During college, I started seeing YouTube videos on 3D printing. After some research and time to save up, I purchased an Ender 3 V2. In time, I upgraded to a Bambu Lab X1C because it offers a faster, better, and more reliable printing experience. Whether it’s functional designs like custom phone stands, an LED-lit TRON sign, or an Iron Man helmet, I love the creative freedom it offers. I design my own models as well as modify existing ones, and there’s something incredibly satisfying about turning an idea in my head into something tangible I can hold, in just a matter of hours."
       ]
     ],
     "cat": [],
@@ -41,18 +44,30 @@
         "> Active member of the AspenTech event planning committee."
       ]
     ],
+    "features": [
+      [
+        "Available features:"
+      ],
+      [
+        "Tab-autocomplete: Use tab to finish commands for you.",
+        "Command history: Use up/down arrow keys to go back to commands you entered.",
+        "File listing: List files in the current directory using 'ls'.",
+        "File viewing: View files using 'cat'."
+      ]
+    ],
     "help": [
       [
         "Available commands:",
-        "about        Displays information about me",
-        "cat          Displays the contents of a file",
-        "contact      Displays my contact information",
-        "education    Displays my education",
-        "experience   Displays my work experience",
-        "help         Lists available commands",
-        "ls           Lists files in the current directory",
-        "projects     Displays my projects",
-        "skills       Displays my skills"
+        "about            Displays information about me",
+        "cat -filename    Displays the contents of a file",
+        "contact          Displays my contact information",
+        "education        Displays my education",
+        "features         Display a list of this site's features",
+        "experience       Displays my work experience",
+        "help             Lists available commands",
+        "ls               Lists files in the current directory",
+        "projects         Displays my projects",
+        "skills           Displays my skills"
       ]
     ],
     "ls": [],
@@ -60,7 +75,13 @@
       [
         "I have a few projects that I have worked on in my free time, including:",
         "> A personal website to showcase my portfolio and resume. (this one!)",
-        "> A digital camera <a href='https://jameskrausethe3rd.github.io/photoPortfolio/' target='_blank'>portfolio</a> to showcase my photography.",
+        "> <a href='https://jameskrausethe3rd.github.io/photoPortfolio/' target='_blank'>photoPortfolio</a>: A React site powered by Firebase to showcase my photography.",
+        "> <a href='https://github.com/jameskrausethe3rd/notes-app' target='_blank'>notes-app</a>: A note app I made for my first dive into Flutter.",
+        "> <a href='https://github.com/jameskrausethe3rd/notetokey' target='_blank'>notetokey</a>: A Python program that uses microphone input to register keystrokes.",
+        "> <a href='https://github.com/jameskrausethe3rd/stream-printer-automation' target='_blank'>stream-printer-automation</a>: A project/wiki to use Home Assistant to livestream the 3D printer camera feed automatically.",
+        "> <a href='https://github.com/jameskrausethe3rd/scripts' target='_blank'>scripts</a>: A repo of a few scripts I use.",
+        "> <a href='https://github.com/jameskrausethe3rd/unfollow_linkedin' target='_blank'>unfollow_linkedin</a>: A browser extension to automatically uncheck the 'Follow' button on LinkedIn.",
+        "> <a href='https://github.com/jameskrausethe3rd/OneToTwentyGame' target='_blank'>OneToTwentyGame</a>: A trained AI model to play the 1 to 20 game.",
         "> A home server to host docker containers for:",
         "  - Home Assistant",
         "  - Nginx Proxy Manager",
