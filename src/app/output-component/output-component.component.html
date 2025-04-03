@@ -1,1 +1,5 @@
-<pre class="command-line-output" [innerHTML]="commandResponse"></pre>
+<div *ngFor="let paragraph of rawResponse">
+    <div *ngFor="let line of paragraph">
+        <p class="command-line-output" [innerHTML]="line"></p>
+    </div>&nbsp;
+</div>

@@ -225,8 +225,8 @@ export class TerminalComponent implements AfterViewInit {
     return Math.random() * (max - min) + min;
   }
 
-  @HostListener('document:click', ['$event'])
-  preventClick(event: MouseEvent) {
-    event.preventDefault();
-  }
+  // @HostListener('document:click', ['$event'])
+  // preventClick(event: MouseEvent) {
+  //   event.preventDefault();
+  // }
 }

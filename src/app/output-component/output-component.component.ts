@@ -10,11 +10,12 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class OutputComponentComponent implements OnInit {
   @Input() enteredCommand!: string;
   public commandResponse!: SafeHtml;
+  public rawResponse!: any[];
 
   constructor(private commandService: CommandService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    const rawResponse = this.commandService.getResponse(this.enteredCommand);
-    this.commandResponse = this.sanitizer.bypassSecurityTrustHtml(rawResponse);
+    this.rawResponse = this.commandService.getResponse(this.enteredCommand);
+    // this.commandResponse = this.sanitizer.bypassSecurityTrustHtml(this.rawResponse);
   }
 }

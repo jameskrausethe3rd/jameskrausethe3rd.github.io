@@ -8,6 +8,7 @@
   max-width: 1400px;
   margin: 1vh auto;
   border: solid 1px;
+  animation: enlarge .2s steps(60, end);
 }
 
 .ascii-art {
@@ -69,5 +70,14 @@
   }
   100% {
     content: '...';
+  }
+}
+
+@keyframes enlarge {
+  0% {
+    width: 1%;
+  }
+  100% {
+    width: 100%;
   }
 }

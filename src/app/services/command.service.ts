@@ -10,21 +10,21 @@ export class CommandService {
 
   constructor(private fileService: FileService) {}
 
-  getResponse(enteredCommand: string): string {
+  getResponse(enteredCommand: string): any[] {
     this.command = enteredCommand;
     const splitCommand = this.command.split(" ");
     if (commands[splitCommand[0] as keyof typeof commands] !== undefined) {
       return this.parseCommand(splitCommand);
     } else {
       if (this.command === "") {
-        return `\n`;
+        return [];
       } else {
-        return `bash: ${enteredCommand}: command not found. Type "help" for available commands.\n\n`;
+        return [[`bash: ${enteredCommand}: command not found. Type "help" for available commands.`]];
       }
     }
   }
 
-  parseCommand(unparsedCommand: string[]): string {
+  parseCommand(unparsedCommand: string[]): any[] {
     switch(unparsedCommand[0]) {
       case "cat":
         return this.executeCat(unparsedCommand);
@@ -35,59 +35,57 @@ export class CommandService {
     }
   }
 
-  executeCat(catCommand: string[]): string {
+  executeCat(catCommand: string[]): any[] {
+    const output = [];
+
     if (catCommand.length === 1) {
-      return `${catCommand[0]}: missing file operand\n\n`;
+      output.push([`${catCommand[0]}: missing file operand`]);
+      return output;
     }
 
     if (catCommand.length > 2) {
-      return `${catCommand[0]}: too many arguments}\n\n`;
+      output.push([`${catCommand[0]}: too many arguments`]);
+      return output;
     }
 
     const fileName = catCommand[1];
     const file = this.fileService.getFile(fileName);
 
     if (!file) {
-      return `cat: ${fileName}: No such file or directory\n\n`;
+      output.push([`cat: ${fileName}: No such file or directory`]);
+      return output;
     } else {
-      return this.fileService.getFileContent(file) + "\n";
+      output.push([this.fileService.getFileContent(file)]);
+      return output;
     }
   }
 
-  executeLS(lsCommand: string[]): string {
+  executeLS(lsCommand: string[]): any[] {
+    const output = [];
+
     if (lsCommand.length > 1) {
-      return `${lsCommand[0]}: unexpected argument - ${lsCommand[1]}\n`;
+      output.push([`${lsCommand[0]}: unexpected argument - ${lsCommand[1]}`]);
+      return output;
     } else {
       const files = this.fileService.getFiles();
-      let output = "";
+      let fileList = []
+
       for (const file of files) {
-        output += file.name + "\n";
+        fileList.push(file.name);
       }
-      return output + "\n";
+
+      output.push(fileList);
+      return output;
     }
   }
 
-  executePredefinedTextCommand(predefinedTextCommand: string[]): string {
+  executePredefinedTextCommand(predefinedTextCommand: string[]): any[] {
     if (predefinedTextCommand.length > 1) {
-      return `${predefinedTextCommand[0]}: unexpected argument - ${predefinedTextCommand[1]}\n`;
+      return [`${predefinedTextCommand[0]}: unexpected argument - ${predefinedTextCommand[1]}\n`];
     } else {
       const predefinedTextCommandOutput = commands[predefinedTextCommand[0] as keyof typeof commands];
-      return this.formatPredefinedTextCommand(predefinedTextCommandOutput);
+      return predefinedTextCommandOutput;
     }
-  }
-
-  formatPredefinedTextCommand(textArray: any[]): string {
-    let output = "";
-
-    for (const str of textArray) {
-      if (Array.isArray(str)) {
-        output += this.formatPredefinedTextCommand(str) + "\n";
-      } else {
-        output += (str + "\n");
-      }
-    }
-
-    return output;
   }
 
   getCommands(): string[] {
