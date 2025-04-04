@@ -3,3 +3,19 @@
         <p class="command-line-output" [innerHTML]="line"></p>
     </div>&nbsp;
 </div>
+<!-- <div *ngIf="'experience' == enteredCommand">
+    <section>
+        <header><h2 id="Timeline">Experience</h2></header>
+        <div class="terminal-timeline">
+          <div class="terminal-card" *ngFor="let job of rawResponse">
+            <header>{{job[0]}}</header>
+            <div>
+                <div *ngFor="let line of job[1]">
+                    <p class="command-line-output" [innerHTML]="line"></p>
+                </div>&nbsp;
+            </div>
+          </div>
+        </div>
+        <br>
+      </section>
+</div> -->

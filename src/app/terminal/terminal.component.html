@@ -14,7 +14,7 @@
   </div>
   <div class="input-container" *ngIf="!showInitializing" #inputContainer>
     <span class="prompt">{{commandLinePrefix}}&nbsp;</span>
-    <input type="text" class="terminal-input" id="typed-input" autocapitalize="none" (keydown)="onKeyDown($event)" #typedInput/>
+    <input [(ngModel)]="currentInputValue" type="text" class="terminal-input" id="typed-input" autocapitalize="none" (keydown)="onKeyDown($event)" #typedInput/>
   </div>
   <div class="input-container" *ngIf="showInitializing && !hidden">
     <span class="initializing-prompt"><br>Initializing bash</span>

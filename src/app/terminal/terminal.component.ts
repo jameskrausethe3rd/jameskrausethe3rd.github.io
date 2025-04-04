@@ -1,8 +1,9 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, ViewChildren, QueryList, HostListener } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, ViewChildren, QueryList, HostListener, ChangeDetectorRef } from '@angular/core';
 import Typed from 'typed.js';
 import { FileService } from '../services/file.service';
 import { CommandService } from '../services/command.service';
 import { BUILD_DATE } from 'src/assets/build-date';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-terminal',
@@ -14,7 +15,9 @@ export class TerminalComponent implements AfterViewInit {
   @ViewChild('inputContainer') inputContainer!: ElementRef;
   @ViewChild('terminalContainer') terminalContainer!: ElementRef;
 
-  constructor(private fileService: FileService, private commandService: CommandService) {}
+  constructor(private fileService: FileService, private commandService: CommandService, private changes: ChangeDetectorRef) {}
+
+  private subscriptions = new Subscription();
 
   showInitializing: boolean = true;
   hidden: boolean = true;
@@ -29,6 +32,9 @@ export class TerminalComponent implements AfterViewInit {
 
   // Value of the text box before the user pressed up/down/tab
   partialEnteredCommand: string = "";
+  
+  // Current input value
+  currentInputValue: string = "";
   
   // All commands that were entered
   allEnteredCommands: string[] = [];
@@ -67,6 +73,14 @@ export class TerminalComponent implements AfterViewInit {
 \`
 `,
   ];
+
+  ngOnInit(): void {
+    this.subscriptions.add(
+      this.commandService.clearTerminal$.subscribe(() => {
+        this.clearTerminal();
+      })
+    );
+  }
 
   // Initialize Typed.js after view load
   ngAfterViewInit(): void {
@@ -114,14 +128,17 @@ export class TerminalComponent implements AfterViewInit {
     }
   }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+
   onKeyDown(event: KeyboardEvent) {
     // Get the value of the input no matter what and enter it
     if (event.key === 'Enter') {
-      const command = this.typedInput.nativeElement.value;
-      this.allEnteredCommands.push(command);
+      this.allEnteredCommands.push(this.currentInputValue);
 
-      if ("" !== command && command !== this.distinctEnteredCommands[this.distinctEnteredCommands.length - 1]) {
-        this.distinctEnteredCommands.push(command);
+      if ("" !== this.currentInputValue && this.currentInputValue !== this.distinctEnteredCommands[this.distinctEnteredCommands.length - 1]) {
+        this.distinctEnteredCommands.push(this.currentInputValue);
         this.historyIndex = this.distinctEnteredCommands.length;
       }
 
@@ -163,7 +180,7 @@ export class TerminalComponent implements AfterViewInit {
     // Update partially entered command with the current value of the input
     else if (event.key === 'Backspace') {
       setTimeout(() => {
-        this.partialEnteredCommand = this.typedInput.nativeElement.value;
+        this.partialEnteredCommand = this.currentInputValue;
         this.tabAutocompleteIndex = 0;
       }, 0);
     }
@@ -194,7 +211,7 @@ export class TerminalComponent implements AfterViewInit {
     else {
       setTimeout(() => {
         this.tabAutocompleteIndex = 0;
-        this.partialEnteredCommand = this.typedInput.nativeElement.value;
+        this.partialEnteredCommand = this.currentInputValue;
       }, 0);
     }
   }
@@ -211,14 +228,24 @@ export class TerminalComponent implements AfterViewInit {
   }
 
   private setInputValue(value: string) {
-    this.typedInput.nativeElement.value = value;
+    this.currentInputValue = value;
 
   }
 
   private clearInputValue() {
-    this.typedInput.nativeElement.value = '';
+    this.currentInputValue = '';
     this.partialEnteredCommand = '';
     this.tabAutocompleteIndex = 0;
+  }
+
+  private clearTerminal() {
+    this.allEnteredCommands = [];
+    this.distinctEnteredCommands = [];
+    this.historyIndex = -1;
+    this.partialEnteredCommand = '';
+    this.tabAutocompleteIndex = 0;
+    this.clearInputValue();
+    this.changes.detectChanges();
   }
 
   public getRandomNumber(min: number, max: number): number {
