@@ -14,6 +14,19 @@
       ]
     ],
     "cat": [],
+    "cls": [],
+    "color": [],
+    "color --help": [
+      [
+        "Usage: color [color] - Change the color of the terminal."
+      ], 
+      [
+        "Examples:",
+        "> color red",
+        "> color #FF0000",
+        "> color reset"
+      ]
+    ],
     "contact": [
       [
         "You can reach me at jameskrausethe3rd@gmail.com"
@@ -42,6 +55,15 @@
         "> Maintained 9 internal shared libraries and dependencies in Artifactory, including NPM modules and Angular frameworks, ensuring reliability and seamless integration with other products.",
         "> Architected RESTful APIs with Python, .NET, and Java, integrating Oracle, MSSQL, and MongoDB to optimize data retrieval and enable seamless client integration.",
         "> Active member of the AspenTech event planning committee."
+      ],
+      [
+        "Prior to that, I was a Software Developer I.",
+        "Job duties for that role included:"
+      ],
+      [
+        "> Developed and maintained backend services in C, C# (.NET 4.6.1), and Java for SOM Planner, interacting with SCADA devices for real-time control, automation, and simulation.",
+        "> Enhanced user experience for our 100+ customers by developing front-end solutions using Angular.",
+        "> Performed code reviews to maintain code quality and adherence to coding standards."
       ]
     ],
     "features": [
@@ -60,6 +82,8 @@
         "Available commands:",
         "about            Displays information about me",
         "cat -filename    Displays the contents of a file",
+        "cls              Clears the terminal",
+        "color -color     Change the color of the text using hex or names",
         "contact          Displays my contact information",
         "education        Displays my education",
         "features         Display a list of this site's features",
